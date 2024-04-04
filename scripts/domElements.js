@@ -7,8 +7,12 @@ const mithrilDOMElement = document.getElementById("playerMithril");
 
 const pickaxeNameDOMElement = document.getElementById("pickaxeName");
 const pickaxeDamageDOMElement = document.getElementById("pickaxeDamage");
+const pickaxeCritChanceDOMElement = document.getElementById("pickaxeCritChance");
 
-const buyBronzePickaxeDOMElement = document.getElementById("test")
+// const buyBronzePickaxeDOMElement = document.getElementById("test");
+
+const currentOreNameDOMElement = document.getElementById("currentOreName");
+const currentOreHealthDOMElement = document.getElementById("currentOreHealth");
 
 const logDOMElements = [
     document.getElementById("logRow1"), 
@@ -31,5 +35,12 @@ function renderPickaxeData(player) {
     pickaxeNameDOMElement.innerHTML = player.pickaxe.name;
     pickaxeNameDOMElement.style.fontWeight = "bold";
     pickaxeDamageDOMElement.innerHTML = "Damage: " + player.pickaxe.attributes.damage;
-    pickaxeDamageDOMElement.style.color = player.pickaxe.color;
+    pickaxeDamageDOMElement.style.color = player.pickaxe.damageColor;
+    pickaxeCritChanceDOMElement.innerHTML = "Crit Chance: " + player.pickaxe.attributes.critChance;
+    pickaxeCritChanceDOMElement.style.color = player.pickaxe.critColor;
+}
+
+function renderCurrentOreData(player) {
+    currentOreNameDOMElement.innerHTML = player.currentOre.name;
+    currentOreHealthDOMElement.innerHTML = "Health: " + player.currentOre.currentHealth + " / " + player.currentOre.maxHealth;
 }

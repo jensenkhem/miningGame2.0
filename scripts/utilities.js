@@ -10,6 +10,11 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
 }
 
+// Function which generates a random float between a given range to two decimal places
+function getRandomFloat(min, max) {
+    return Math.round((Math.random() * (max - min) + min) * 100) / 100;
+};
+
 // Formats a date into a human readable timestamp
 function formatDate(date) {
     var month = date.getMonth() + 1; // Months are zero-indexed, so we add 1

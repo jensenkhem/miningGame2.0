@@ -2,8 +2,8 @@
 class Log {
     constructor(rows) {
         this.rows = rows;
-        for(let i = 0; i < this.rows.length - 1; i++) {
-            this.rows[i].innerHTML = "";
+        for(let i = 0; i < this.rows.length; i++) {
+            this.rows[i].innerHTML = "--------------------";
         }
     }
     // Write a new line to the log
@@ -16,7 +16,7 @@ class Log {
     pushDown() {
         let next = ""
         let previous = ""
-        for(let i = 0; i < this.rows.length - 1; i++) {
+        for(let i = 0; i < this.rows.length; i++) {
             previous = this.rows[i].innerHTML;
             this.rows[i].innerHTML = next;
             next = previous;

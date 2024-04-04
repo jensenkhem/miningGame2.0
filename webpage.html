@@ -6,7 +6,9 @@
     <body>
         <!-- DOM elements -->
         <div class="playerInfo">
+            <span id="playerInfoTitle">Player Info</span>
             <div class="playerResources">
+                <span id="playerResourcesTitle">Resources</span>
                 <span id="playerBronze"></span>
                 <span id="playerIron"></span>
                 <span id="playerSteel"></span>
@@ -14,26 +16,39 @@
             </div>
 
             <div class="pickaxeInfo">
+                <span id="pickaxeInfoTitle">Current Pickaxe</span>
                 <span id="pickaxeName"></span>
                 <div class="pickaxeAttributes">
                     <span id="pickaxeDamage"></span>
+                    <span id="pickaxeCritChance"></span>
                 </div>
             </div>
 
         </div>
-        <div class="log">
-            <span id="logRow1"></span>
-            <span id="logRow2"></span>
-            <span id="logRow3"></span>
-            <span id="logRow4"></span>
-            <span id="logRow5"></span>
+
+        <div class="currentOreInfo">
+            <span id="currentOreTitle">Currently mining:</span>
+            <span id="currentOreName"></span>
+            <span id="currentOreHealth"></span>
         </div>
-        <button id="test">
+
+        <div class="log">
+            <span id="logTitle">Event Log</span>
+            <span
+            <span id="logRow1">------------</span>
+            <span id="logRow2">------------</span>
+            <span id="logRow3">------------</span>
+            <span id="logRow4">------------</span>
+            <span id="logRow5">------------</span>
+        </div>
+        <!-- <button id="test">
             Click me!
-        </button>
+        </button> -->
+
         <!-- Load in all the JS -->
         <script type="text/javascript" src="scripts/database.js"></script>
         <script type="text/javascript" src="scripts/domElements.js"></script>
+        <script type="text/javascript" src="scripts/Ore.js"></script>
         <script type="text/javascript" src="scripts/Pickaxe.js"></script>
         <script type="text/javascript" src="scripts/Log.js"></script>
         <script type="text/javascript" src="scripts/Player.js"></script>

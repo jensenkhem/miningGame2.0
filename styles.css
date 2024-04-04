@@ -1,6 +1,37 @@
+#playerInfoTitle {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 30;
+}
+
+#playerResourcesTitle {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 20;
+    margin-left: -10;
+}
+
+#currentOreTitle {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 20;
+    margin-left: -10;
+}
+
+
+#pickaxeInfoTitle {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 20;
+}
+
 .playerResources {
     display: grid;
     margin-bottom: 10;
+    margin-left: 10;
+}
+#pickaxeName {
+    margin-left: 10;
 }
 
 .playerInfo {
@@ -13,8 +44,28 @@
 
 .pickaxeAttributes {
     display: grid;
+    margin-left: 10;
 }
 
 .log {
     display: grid;
+    margin-bottom: 10;
+    margin-left: 10;
+}
+
+#logTitle {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 20;
+    margin-left: -10;
+}
+
+.currentOreInfo {
+    display: grid;
+    margin-bottom: 10;
+    margin-left: 10;
+}
+
+#currentOreName {
+    font-weight: bold;
 }
