@@ -1,5 +1,8 @@
 // Main file for anything DOM related
 
+const levelDOMElement = document.getElementById("playerLevel");
+const expDOMElement = document.getElementById("levelExp");
+
 const bronzeDOMElement = document.getElementById("playerBronze");
 const ironDOMElement = document.getElementById("playerIron");
 const steelDOMElement = document.getElementById("playerSteel");
@@ -9,10 +12,14 @@ const pickaxeNameDOMElement = document.getElementById("pickaxeName");
 const pickaxeDamageDOMElement = document.getElementById("pickaxeDamage");
 const pickaxeCritChanceDOMElement = document.getElementById("pickaxeCritChance");
 
-// const buyBronzePickaxeDOMElement = document.getElementById("test");
+const buyBronzePickaxeDOMElement = document.getElementById("bronzePickaxeUpgradeButton");
+const buyIronPickaxeDOMElement = document.getElementById("ironPickaxeUpgradeButton");
 
 const currentOreNameDOMElement = document.getElementById("currentOreName");
 const currentOreHealthDOMElement = document.getElementById("currentOreHealth");
+
+const bronzePictureDOMElement = document.getElementById("bronzeOre");
+const ironPictureDOMElement = document.getElementById("ironOre");
 
 const logDOMElements = [
     document.getElementById("logRow1"), 
@@ -28,13 +35,15 @@ function renderPlayerData(player) {
     ironDOMElement.innerHTML = "Iron: " + player.resources.iron;
     steelDOMElement.innerHTML = "Steel: " + player.resources.steel;
     mithrilDOMElement.innerHTML = "Mithril: " + player.resources.mithril;
+    levelDOMElement.innerHTML = "Player Level: " + player.level;
+    expDOMElement.innerHTML = "Exp: " + player.currentExp + "/" + player.maxExp;
 }
 
 // Renders the player's pickaxe data onto the DOM
 function renderPickaxeData(player) {
     pickaxeNameDOMElement.innerHTML = player.pickaxe.name;
     pickaxeNameDOMElement.style.fontWeight = "bold";
-    pickaxeDamageDOMElement.innerHTML = "Damage: " + player.pickaxe.attributes.damage;
+    pickaxeDamageDOMElement.innerHTML = "Damage: " + player.pickaxe.attributes.damage + " (+" + player.level * 10 + ")";
     pickaxeDamageDOMElement.style.color = player.pickaxe.damageColor;
     pickaxeCritChanceDOMElement.innerHTML = "Crit Chance: " + player.pickaxe.attributes.critChance;
     pickaxeCritChanceDOMElement.style.color = player.pickaxe.critColor;

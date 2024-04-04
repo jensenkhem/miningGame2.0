@@ -1,6 +1,9 @@
 // Main player class
 class Player {
     constructor() {
+        this.level = 1;
+        this.currentExp = 0;
+        this.maxExp = 100;
         this.resources = {
             bronze: 10,
             iron: 10,
@@ -10,7 +13,7 @@ class Player {
         // Start the player off with a bronze pickaxe when constructed
         this.pickaxe = createPickaxe("bronze");
         this.currentOre = new Ore("bronze");
-        this.tickRate = 5000;
+        this.tickRate = 2500;
     }
 
     // Method for seeing if you can afford a new pickaxe
@@ -26,9 +29,21 @@ class Player {
         return false;
     }
 
+    // Level up
+    levelup() {
+        this.level += 1;
+        this.currentExp = this.currentExp - this.maxExp;
+        this.maxExp = Math.floor(this.maxExp *= 1.12);
+        renderPlayerData(this);
+        renderPickaxeData(this);
+    }
+
     // Method for purchasing a new pickaxe
     buyPickaxe(type, log) {
-        if (this.canAffordPickaxe(type)) {
+        let newPickaxe = createPickaxe(type);
+        if(newPickaxe.attributes.tier < this.pickaxe.attributes.tier) {
+            log.write("This pickaxe is worse than your current one...")    
+        } else if (this.canAffordPickaxe(type)) {
             this.resources.bronze -= costDictionary[type].bronze;
             this.resources.iron -= costDictionary[type].iron;
             this.resources.steel -= costDictionary[type].steel;
@@ -37,8 +52,9 @@ class Player {
             log.write("Purchased " + this.pickaxe.name + "!");
             renderPickaxeData(this);
             renderPlayerData(this);
+        } else {
+            log.write("Can not afford!");
         }
-        log.write("Can not afford!");
     }
 
     // Method for mining
@@ -46,7 +62,7 @@ class Player {
         let damageDealt = this.calculateDamage();
         if(damageDealt == 0) {
             log.write("Missed...");
-        } else if (damageDealt > 1.25 * this.pickaxe.attributes.damage) {
+        } else if (damageDealt > 1.25 * (this.pickaxe.attributes.damage + this.level * 10)) {
             log.write("Critical hit! Damage dealt: " + damageDealt);
         } else {
             log.write("Damage dealt: " + damageDealt);
@@ -56,8 +72,13 @@ class Player {
         // Check if the ore is destroyed
         if(!this.currentOre.alive()) {
             // Only get one ore for now, probably can change later
-            this.resources[this.currentOre.type] += 1;
-            log.write("Successfully mined 1 " + this.currentOre.type);
+            let gainedOre = getRandomInt(1, 6)
+            this.resources[this.currentOre.type] += gainedOre;
+            this.currentExp += this.currentOre.exp;
+            if(this.currentExp >= this.maxExp) {
+                this.levelup();
+            }
+            log.write("Successfully mined " + gainedOre + " " + this.currentOre.type);
             // Generate a new ore
             let nextOre = new Ore(this.currentOre.type);
             this.currentOre = nextOre;
@@ -69,8 +90,8 @@ class Player {
 
     // Method for calculating the damage done by a pickaxe swing against a particular ore
     calculateDamage() {
-        let lowerBound = Math.floor(this.pickaxe.attributes.damage * 0.75);
-        let upperBound = Math.floor(this.pickaxe.attributes.damage * 1.25);
+        let lowerBound = Math.floor((this.pickaxe.attributes.damage + this.level * 10) * 0.75);
+        let upperBound = Math.floor((this.pickaxe.attributes.damage + this.level * 10) * 1.25);
         let damageDealt = getRandomInt(lowerBound, upperBound);
         // Check for crit here
         let didCrit = this.criticalHitCheck();
@@ -92,7 +113,6 @@ class Player {
         } else if (damage < 0.5 * defense) {
             return 0;
         } else {
-            //console.log(damage, defense)
             return (damage - 0.5 * defense) / (defense * 0.5);
         }
     }
@@ -100,5 +120,17 @@ class Player {
     // Check for a critical hit
     criticalHitCheck() {
         return Math.random() < this.pickaxe.attributes.critChance;
+    }
+
+    // Method to switch ore's given an ore type
+    switchOre(type, log) {
+        if(type == this.currentOre.type) {
+            log.write("Already mining: " + this.currentOre.name + "...");
+        } else {
+            let newOre = new Ore(type);
+            this.currentOre = newOre;
+            log.write("Now mining: " + this.currentOre.name);
+            renderCurrentOreData(this);
+        }
     }
 }

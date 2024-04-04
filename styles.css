@@ -18,6 +18,50 @@
     margin-left: -10;
 }
 
+#shopTitle {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 20;
+    margin-bottom: 10;
+}
+
+#bronzePickaxeUpgradeButton {
+    width: 200;
+    margin-left: 10;
+}
+
+#ironPickaxeUpgradeButton {
+    width: 200;
+    margin-left: 10;
+}
+
+#levelExp {
+    margin-left: 10
+}
+
+.levelInfo {
+    display: grid;
+    margin-bottom: 10;
+}
+
+#playerLevel {
+    margin-left: 10;
+    font-weight: bold;
+}
+
+#levelTitle {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 20;
+}
+
+.oreSelection {
+    margin-bottom: 10;
+}
+
+.shop {
+    display: grid;
+}
 
 #pickaxeInfoTitle {
     text-decoration: underline;

@@ -14,6 +14,7 @@ class Pickaxe {
         return {
             damage: getRandomInt(baseAttributes.damage * 0.75, baseAttributes.damage * 1.25),
             critChance: getRandomFloat(baseAttributes.critChance * 0.75, baseAttributes.critChance * 1.25),
+            tier: baseAttributes.tier
         }
     }
     
