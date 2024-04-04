@@ -1,5 +1,18 @@
 .playerResources {
     display: grid;
+    margin-bottom: 10;
+}
+
+.playerInfo {
+    margin-bottom: 10;
+}
+
+.pickaxeInfo {
+    display: grid;
+}
+
+.pickaxeAttributes {
+    display: grid;
 }
 
 .log {
