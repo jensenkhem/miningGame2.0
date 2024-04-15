@@ -67,7 +67,7 @@ class Player {
         let damageDealt = this.calculateDamage();
         if(damageDealt == 0) {
             log.write("Missed...");
-        } else if (damageDealt > this.pickaxe.highMultiplier * (this.pickaxe.attributes.damage + this.level * this.levelDamageBonus)) {
+        } else if (damageDealt > this.pickaxe.attributes.highMultiplier * (this.pickaxe.attributes.damage + this.level * this.levelDamageBonus)) {
             log.write("Critical hit! Damage dealt: " + damageDealt);
         } else {
             log.write("Damage dealt: " + damageDealt);
@@ -95,19 +95,22 @@ class Player {
 
     // Method for calculating the damage done by a pickaxe swing against a particular ore
     calculateDamage() {
-        let lowerBound = Math.floor((this.pickaxe.attributes.damage + this.level * this.levelDamageBonus) * this.pickaxe.lowMultiplier);
-        let upperBound = Math.floor((this.pickaxe.attributes.damage + this.level * this.levelDamageBonus) * this.pickaxe.highMultipler);
+        
+        let lowerBound = Math.floor((this.pickaxe.attributes.damage + this.level * this.levelDamageBonus) * this.pickaxe.attributes.lowMultiplier);
+        let upperBound = Math.floor((this.pickaxe.attributes.damage + this.level * this.levelDamageBonus) * this.pickaxe.attributes.highMultiplier);
         let damageDealt = getRandomInt(lowerBound, upperBound);
+
         // Check for crit here
         let didCrit = this.criticalHitCheck();
         if(didCrit) {
-            damageDealt *= this.pickaxe.critDamageMultiplier;
+            damageDealt *= this.pickaxe.attributes.critDamageMultiplier;
         } 
         // Check for a hit
         let accuracy = this.calculateAccuracy(damageDealt, this.currentOre.defense);
         if (Math.random() > accuracy) {
             damageDealt = 0;
         }
+        
         return damageDealt;
     }
 
