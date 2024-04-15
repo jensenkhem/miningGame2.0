@@ -22,17 +22,14 @@
     text-decoration: underline;
     font-weight: bold;
     font-size: 20;
-    margin-bottom: 10;
 }
 
 #bronzePickaxeUpgradeButton {
     width: 200;
-    margin-left: 10;
 }
 
 #ironPickaxeUpgradeButton {
     width: 200;
-    margin-left: 10;
 }
 
 #levelExp {
@@ -42,6 +39,15 @@
 .levelInfo {
     display: grid;
     margin-bottom: 10;
+}
+
+.container {
+    display: flex;
+}
+
+.container .playerInfo,
+.container .shop {
+    flex: 1;
 }
 
 #playerLevel {

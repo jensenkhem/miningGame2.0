@@ -4,16 +4,20 @@ class Player {
         this.level = 1;
         this.currentExp = 0;
         this.maxExp = 100;
+        this.levelDamageBonus = 0;
         this.resources = {
-            bronze: 10,
-            iron: 10,
-            steel: 10,
-            mithril: 10
+            bronze: 0,
+            iron: 0,
+            steel: 0,
+            mithril: 0
         }
         // Start the player off with a bronze pickaxe when constructed
         this.pickaxe = createPickaxe("bronze");
         this.currentOre = new Ore("bronze");
         this.tickRate = 2500;
+        this.missThreshold = 0.5;
+        this.maxAccThreshold = 1.5;
+        this.oreGainMax = 5;
     }
 
     // Method for seeing if you can afford a new pickaxe
@@ -32,6 +36,7 @@ class Player {
     // Level up
     levelup() {
         this.level += 1;
+        this.levelDamageBonus += 10;
         this.currentExp = this.currentExp - this.maxExp;
         this.maxExp = Math.floor(this.maxExp *= 1.12);
         renderPlayerData(this);
@@ -62,7 +67,7 @@ class Player {
         let damageDealt = this.calculateDamage();
         if(damageDealt == 0) {
             log.write("Missed...");
-        } else if (damageDealt > 1.25 * (this.pickaxe.attributes.damage + this.level * 10)) {
+        } else if (damageDealt > this.pickaxe.highMultiplier * (this.pickaxe.attributes.damage + this.level * this.levelDamageBonus)) {
             log.write("Critical hit! Damage dealt: " + damageDealt);
         } else {
             log.write("Damage dealt: " + damageDealt);
@@ -72,7 +77,7 @@ class Player {
         // Check if the ore is destroyed
         if(!this.currentOre.alive()) {
             // Only get one ore for now, probably can change later
-            let gainedOre = getRandomInt(1, 6)
+            let gainedOre = getRandomInt(1, this.oreGainMax + 1)
             this.resources[this.currentOre.type] += gainedOre;
             this.currentExp += this.currentOre.exp;
             if(this.currentExp >= this.maxExp) {
@@ -90,13 +95,13 @@ class Player {
 
     // Method for calculating the damage done by a pickaxe swing against a particular ore
     calculateDamage() {
-        let lowerBound = Math.floor((this.pickaxe.attributes.damage + this.level * 10) * 0.75);
-        let upperBound = Math.floor((this.pickaxe.attributes.damage + this.level * 10) * 1.25);
+        let lowerBound = Math.floor((this.pickaxe.attributes.damage + this.level * this.levelDamageBonus) * this.pickaxe.lowMultiplier);
+        let upperBound = Math.floor((this.pickaxe.attributes.damage + this.level * this.levelDamageBonus) * this.pickaxe.highMultipler);
         let damageDealt = getRandomInt(lowerBound, upperBound);
         // Check for crit here
         let didCrit = this.criticalHitCheck();
         if(didCrit) {
-            damageDealt *= 2;
+            damageDealt *= this.pickaxe.critDamageMultiplier;
         } 
         // Check for a hit
         let accuracy = this.calculateAccuracy(damageDealt, this.currentOre.defense);
@@ -108,12 +113,12 @@ class Player {
 
     // Calculates a probability of hitting given a damage and a defense
     calculateAccuracy(damage, defense) {
-        if (damage > 1.5 * defense) {
+        if (damage > this.maxAccThreshold * defense) {
             return 1;
-        } else if (damage < 0.5 * defense) {
+        } else if (damage < this.missThreshold * defense) {
             return 0;
         } else {
-            return (damage - 0.5 * defense) / (defense * 0.5);
+            return (damage - this.missThreshold * defense) / (defense * this.missThreshold);
         }
     }
 
