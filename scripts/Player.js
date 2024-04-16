@@ -1,14 +1,14 @@
 // Main player class
 class Player {
     constructor() {
-        this.level = 1;
+        this.level = 31;
         this.currentExp = 0;
         this.maxExp = 0;
         this.levelDamageBonus = 0;
         this.resources = {
             bronze: 0,
             iron: 0,
-            mithril: 0
+            mithril: 0,
         }
         this.enchantmentCores = 100;
         this.enchantmentTier = 1;
@@ -167,8 +167,9 @@ class Player {
     // - faster exp gain
     tierUpEnchantments(log) {
         let chance = Math.random();
-        if (chance < enchantmentTierDictionary[this.enchantmentTier.toString()]) {
+        if (chance < enchantmentTierDictionary[this.enchantmentTier.toString()].tierUpChance) {
             this.enchantmentTier += 1;
+            console.log("Tiered up! " + this.enchantmentTier);
         }
     }
 
@@ -180,7 +181,7 @@ class Player {
             // Subtract a core
             this.enchantmentCores -= 1;
             // Check for a tier up
-            this.tierUpEnchantments();
+            this.tierUpEnchantments(log);
             // Reroll depending on the current tier
             let randomEnchant1 = getRandomValueFromDict(enchantmentDictionary)
             let newEnchantment1Dict = randomEnchant1[1];
