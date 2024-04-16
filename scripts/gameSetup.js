@@ -28,6 +28,9 @@ function configureEvents(player, log) {
     setupShopHandlers(player, log);
     // Set up the ore switching handlers
     setupOreHandlers(player, log);
+    document.getElementById("enchant").onclick = () => {
+        player.rerollEnchantments(log);
+    }
     // Set up the main game loop interval
     player.interval = setInterval(() => { player.mine(log) }, player.tickRate);
  }

@@ -34,3 +34,20 @@ function formatDate(date) {
     // Format: month/day/year/hour:minutes
     return month + "/" + day + "/" + year + " " + hours + ":" + minutes + ":" + seconds;
 }
+
+function getRandomValueFromDict(dictionary) {
+    // Extract keys from the dictionary object
+    let keys = Object.keys(dictionary);
+    // Generate a random index within the range of keys
+    let randomIndex = Math.floor(Math.random() * keys.length);
+    let randomKey = keys[randomIndex];
+    // Return both the key and its associated value as an array
+    return [randomKey, dictionary[randomKey]];
+}
+
+function getRandomFromArray(array) {
+    // Generate a random index within the range of the array length
+    let randomIndex = Math.floor(Math.random() * array.length);
+    // Return the element at the randomly chosen index
+    return array[randomIndex];
+}

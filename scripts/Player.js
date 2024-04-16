@@ -3,14 +3,15 @@ class Player {
     constructor() {
         this.level = 1;
         this.currentExp = 0;
-        this.maxExp = 100;
+        this.maxExp = 0;
         this.levelDamageBonus = 0;
         this.resources = {
             bronze: 0,
             iron: 0,
             mithril: 0
         }
-        this.enchantmentCores = 0;
+        this.enchantmentCores = 100;
+        this.enchantmentTier = 1;
         // Start the player off with a bronze pickaxe when constructed
         this.pickaxe = createPickaxe("bronze");
         this.currentOre = new Ore("bronze");
@@ -19,6 +20,7 @@ class Player {
         this.maxAccThreshold = 1.5;
         this.oreGainMax = 5;
         this.interval = null;
+        this.luck = 0.05;
     }
 
     // Method for seeing if you can afford a new pickaxe
@@ -78,6 +80,12 @@ class Player {
             // Only get one ore for now, probably can change later
             let gainedOre = getRandomInt(1, this.oreGainMax + 1)
             this.resources[this.currentOre.type] += gainedOre;
+            if(this.level >= 30) {
+                if (Math.random() < this.luck) {
+                    this.enchantmentCores += 1;
+                    log.write("You see an enchantment core glimmering inside the ore!");
+                }
+            }
             this.currentExp += this.currentOre.exp;
             if(this.currentExp >= this.maxExp) {
                 this.levelup();
@@ -146,6 +154,50 @@ class Player {
         this.interval = setInterval(() => { this.mine(log) }, this.tickRate);
         log.write("New interval set: " + this.tickRate + " ms");
         renderPlayerData(this);
+    }
+    
+    // Want a feature where you spend 1 enchantment core to reroll your 3 enchantments and possibly tier up
+    // common - unbcommon - rare - unique - legendary - mythic
+    // Types of enchantments
+    // - Tick rate modifier by some %, multiplicative
+    // - Increased damage from level bonus (+ some fixed num)
+    // - % Damage increase to base pickaxe damage?
+    // - flat + multiplicative increase to crit chance?
+    // - increased ore per mine
+    // - faster exp gain
+    tierUpEnchantments(log) {
+        let chance = Math.random();
+        if (chance < enchantmentTierDictionary[this.enchantmentTier.toString()]) {
+            this.enchantmentTier += 1;
+        }
+    }
+
+    rerollEnchantments(log) {
+        // Idea, first check to see if the player can afford to enchant
+        if(this.enchantmentCores == 0) {
+            log.write("Cannot afford to enchant!");
+        } else {
+            // Subtract a core
+            this.enchantmentCores -= 1;
+            // Check for a tier up
+            this.tierUpEnchantments();
+            // Reroll depending on the current tier
+            let randomEnchant1 = getRandomValueFromDict(enchantmentDictionary)
+            let newEnchantment1Dict = randomEnchant1[1];
+            let newEnchantment1Type = randomEnchant1[0];
+            let newEnchantment1Value = getRandomFromArray(newEnchantment1Dict[this.enchantmentTier.toString()]);
+            let randomEnchant2 = getRandomValueFromDict(enchantmentDictionary)
+            let newEnchantment2Dict = randomEnchant2[1];
+            let newEnchantment2Type = randomEnchant2[0];
+            let newEnchantment2Value = getRandomFromArray(newEnchantment1Dict[this.enchantmentTier.toString()]);
+            let randomEnchant3 = getRandomValueFromDict(enchantmentDictionary)
+            let newEnchantment3Dict = randomEnchant3[1];
+            let newEnchantment3Type = randomEnchant3[0];
+            let newEnchantment3Value = getRandomFromArray(newEnchantment1Dict[this.enchantmentTier.toString()]);
+            console.log("Random Enchant 1: " + newEnchantment1Type + " " + newEnchantment1Value);
+            console.log("Random Enchant 2: " + newEnchantment2Type + " " + newEnchantment2Value);
+            console.log("Random Enchant 3: " + newEnchantment3Type + " " + newEnchantment3Value);
+        }
     }
 
 }

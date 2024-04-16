@@ -7,6 +7,7 @@ const bronzeDOMElement = document.getElementById("playerBronze");
 const ironDOMElement = document.getElementById("playerIron");
 const mithrilDOMElement = document.getElementById("playerMithril");
 
+const playerEnchantmentsDOMElement = document.getElementById("playerEnchantments");
 const enchantmentCoresDOMElement = document.getElementById("enchantmentCores");
 
 const pickaxeNameDOMElement = document.getElementById("pickaxeName");
@@ -46,10 +47,10 @@ function renderPlayerData(player) {
     expDOMElement.innerHTML = "Exp: " + player.currentExp + "/" + player.maxExp;
     playerTickRateDOMElement.innerHTML = "Mining rate: " + player.tickRate + " ms";
     if(player.level >= 30) {
-        enchantmentCoresDOMElement.style.visibility = "visible";
+        playerEnchantmentsDOMElement.style.visibility = "visible";
         enchantmentCoresDOMElement.innerHTML = "Enchantment cores: " + player.enchantmentCores;
     } else {
-        enchantmentCoresDOMElement.style.visibility = "hidden";
+        playerEnchantmentsDOMElement.style.visibility = "hidden";
     }
 
 }
