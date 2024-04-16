@@ -5,6 +5,9 @@ function setupOreHandlers(player, log) {
     ironPictureDOMElement.onclick = () => {
         player.switchOre("iron", log);
     }
+    mithrilPictureDOMElement.onclick = () => {
+        player.switchOre("mithril", log);
+    }
 }
 
 function setupShopHandlers(player, log) {
@@ -13,6 +16,9 @@ function setupShopHandlers(player, log) {
     }
     buyIronPickaxeDOMElement.onclick = () => {
         player.buyPickaxe("iron", log);
+    }
+    buyMithrilPickaxeDOMElement.onclick = () => {
+        player.buyPickaxe("mithril", log);
     }
 }
 

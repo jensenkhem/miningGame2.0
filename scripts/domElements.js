@@ -5,7 +5,6 @@ const expDOMElement = document.getElementById("levelExp");
 
 const bronzeDOMElement = document.getElementById("playerBronze");
 const ironDOMElement = document.getElementById("playerIron");
-const steelDOMElement = document.getElementById("playerSteel");
 const mithrilDOMElement = document.getElementById("playerMithril");
 
 const pickaxeNameDOMElement = document.getElementById("pickaxeName");
@@ -14,12 +13,16 @@ const pickaxeCritChanceDOMElement = document.getElementById("pickaxeCritChance")
 
 const buyBronzePickaxeDOMElement = document.getElementById("bronzePickaxeUpgradeButton");
 const buyIronPickaxeDOMElement = document.getElementById("ironPickaxeUpgradeButton");
+const buyMithrilPickaxeDOMElement = document.getElementById("mithrilPickaxeUpgradeButton");
+
 
 const currentOreNameDOMElement = document.getElementById("currentOreName");
 const currentOreHealthDOMElement = document.getElementById("currentOreHealth");
 
 const bronzePictureDOMElement = document.getElementById("bronzeOre");
 const ironPictureDOMElement = document.getElementById("ironOre");
+const mithrilPictureDOMElement = document.getElementById("mithrilOre");
+
 
 const logDOMElements = [
     document.getElementById("logRow1"), 
@@ -33,7 +36,6 @@ const logDOMElements = [
 function renderPlayerData(player) {
     bronzeDOMElement.innerHTML = "Bronze: " + player.resources.bronze;
     ironDOMElement.innerHTML = "Iron: " + player.resources.iron;
-    steelDOMElement.innerHTML = "Steel: " + player.resources.steel;
     mithrilDOMElement.innerHTML = "Mithril: " + player.resources.mithril;
     levelDOMElement.innerHTML = "Player Level: " + player.level;
     expDOMElement.innerHTML = "Exp: " + player.currentExp + "/" + player.maxExp;

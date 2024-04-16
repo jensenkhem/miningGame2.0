@@ -18,6 +18,11 @@
     margin-left: -10;
 }
 
+#mithrilOre {
+    width: 400;
+    height: 250;
+}
+
 #shopTitle {
     text-decoration: underline;
     font-weight: bold;
@@ -25,11 +30,15 @@
 }
 
 #bronzePickaxeUpgradeButton {
-    width: 200;
+    width: 400;
 }
 
 #ironPickaxeUpgradeButton {
-    width: 200;
+    width: 400;
+}
+
+#mithrilPickaxeUpgradeButton {
+    width: 400;
 }
 
 #levelExp {

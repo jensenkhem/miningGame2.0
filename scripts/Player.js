@@ -8,7 +8,6 @@ class Player {
         this.resources = {
             bronze: 0,
             iron: 0,
-            steel: 0,
             mithril: 0
         }
         // Start the player off with a bronze pickaxe when constructed
@@ -25,7 +24,6 @@ class Player {
         if (
             this.resources.bronze >= costDictionary[type].bronze &&
             this.resources.iron >= costDictionary[type].iron &&
-            this.resources.steel >= costDictionary[type].steel &&
             this.resources.mithril >= costDictionary[type].mithril
         ) {
             return true;
@@ -51,7 +49,6 @@ class Player {
         } else if (this.canAffordPickaxe(type)) {
             this.resources.bronze -= costDictionary[type].bronze;
             this.resources.iron -= costDictionary[type].iron;
-            this.resources.steel -= costDictionary[type].steel;
             this.resources.mithril -= costDictionary[type].mithril;
             this.pickaxe = createPickaxe(type);
             log.write("Purchased " + this.pickaxe.name + "!");
@@ -96,8 +93,8 @@ class Player {
     // Method for calculating the damage done by a pickaxe swing against a particular ore
     calculateDamage() {
         
-        let lowerBound = Math.floor((this.pickaxe.attributes.damage + this.level * this.levelDamageBonus) * this.pickaxe.attributes.lowMultiplier);
-        let upperBound = Math.floor((this.pickaxe.attributes.damage + this.level * this.levelDamageBonus) * this.pickaxe.attributes.highMultiplier);
+        let lowerBound = Math.floor((this.pickaxe.attributes.damage + this.levelDamageBonus) * this.pickaxe.attributes.lowMultiplier);
+        let upperBound = Math.floor((this.pickaxe.attributes.damage + this.levelDamageBonus) * this.pickaxe.attributes.highMultiplier);
         let damageDealt = getRandomInt(lowerBound, upperBound);
 
         // Check for crit here
