@@ -8,6 +8,9 @@ function setupOreHandlers(player, log) {
     mithrilPictureDOMElement.onclick = () => {
         player.switchOre("mithril", log);
     }
+    adamantPictureDOMElement.onclick = () => {
+        player.switchOre("adamant", log);
+    }
 }
 
 function setupShopHandlers(player, log) {
@@ -19,6 +22,9 @@ function setupShopHandlers(player, log) {
     }
     buyMithrilPickaxeDOMElement.onclick = () => {
         player.buyPickaxe("mithril", log);
+    }
+    buyAdamantPickaxeDOMElement.onclick = () => {
+        player.buyPickaxe("adamant", log);
     }
 }
 

@@ -19,7 +19,12 @@
 }
 
 #mithrilOre {
-    width: 400;
+    width: 300;
+    height: 250;
+}
+
+#adamantOre {
+    width: 300;
     height: 250;
 }
 
@@ -41,8 +46,37 @@
     width: 400;
 }
 
+#adamantPickaxeUpgradeButton {
+    width: 400;
+}
+
+
 #levelExp {
     margin-left: 10
+}
+
+#enchantmentStuffDetailed {
+    display: grid;
+}
+
+#playerEnchantmentsTitle {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 20;
+}
+
+#enchant {
+    width: 200;
+}
+
+#playerEnchantments {
+    display: grid;
+}
+
+.currentEnchantments {
+    display: grid;
+    margin-top: 10;
+    margin-bottom: 10;
 }
 
 .levelInfo {
@@ -72,6 +106,7 @@
 
 .oreSelection {
     margin-bottom: 10;
+    display: inline-block
 }
 
 .shop {

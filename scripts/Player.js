@@ -3,12 +3,15 @@ class Player {
     constructor() {
         this.level = 31;
         this.currentExp = 0;
-        this.maxExp = 0;
-        this.levelDamageBonus = 0;
+        this.maxExp = 100;
+        this.expEnchantmentMultiplier = 0;
+        this.baseExpEnchantmentMultipler = 0;
+        this.bonusLevelDamage = 0;
         this.resources = {
             bronze: 0,
             iron: 0,
             mithril: 0,
+            adamant: 0,
         }
         this.enchantmentCores = 100;
         this.enchantmentTier = 1;
@@ -16,6 +19,7 @@ class Player {
         this.pickaxe = createPickaxe("bronze");
         this.currentOre = new Ore("bronze");
         this.tickRate = 2500;
+        this.baseTickRate = 2500;
         this.missThreshold = 0.5;
         this.maxAccThreshold = 1.5;
         this.oreGainMax = 5;
@@ -37,10 +41,11 @@ class Player {
 
     // Level up
     levelup() {
-        this.level += 1;
-        this.levelDamageBonus += 10;
-        this.currentExp = this.currentExp - this.maxExp;
-        this.maxExp = Math.floor(this.maxExp *= 1.12);
+        while(this.currentExp >= this.maxExp) {
+            this.level += 1;
+            this.currentExp = this.currentExp - this.maxExp;
+            this.maxExp = Math.floor(this.maxExp *= 1.12);
+        }
         renderPlayerData(this);
         renderPickaxeData(this);
     }
@@ -66,9 +71,10 @@ class Player {
     // Method for mining
     mine(log) {
         let damageDealt = this.calculateDamage();
+        let levelDamage = this.level * 10 + this.level * this.bonusLevelDamage;
         if(damageDealt == 0) {
             log.write("Missed...");
-        } else if (damageDealt > this.pickaxe.attributes.highMultiplier * (this.pickaxe.attributes.damage + this.level * this.levelDamageBonus)) {
+        } else if (damageDealt > this.pickaxe.attributes.highMultiplier * (this.pickaxe.attributes.damage + levelDamage)) {
             log.write("Critical hit! Damage dealt: " + damageDealt);
         } else {
             log.write("Damage dealt: " + damageDealt);
@@ -86,11 +92,15 @@ class Player {
                     log.write("You see an enchantment core glimmering inside the ore!");
                 }
             }
-            this.currentExp += this.currentOre.exp;
+            this.currentExp += this.currentOre.exp + (Math.floor(this.currentOre.exp * this.expEnchantmentMultiplier));
             if(this.currentExp >= this.maxExp) {
                 this.levelup();
             }
-            log.write("Successfully mined " + gainedOre + " " + this.currentOre.type);
+            if(this.level >= 30 && this.expEnchantmentMultiplier > 0) {
+                log.write("Successfully mined " + gainedOre + " " + this.currentOre.type + ". Exp Gained: " + (this.currentOre.exp + Math.floor(this.currentOre.exp * this.expEnchantmentMultiplier)) + " (+ " + (Math.floor(this.currentOre.exp * this.expEnchantmentMultiplier)) + " enchantment bonus exp!)");
+            } else {
+                log.write("Successfully mined " + gainedOre + " " + this.currentOre.type + ". Exp Gained: " + this.currentOre.exp);
+            }
             // Generate a new ore
             let nextOre = new Ore(this.currentOre.type);
             this.currentOre = nextOre;
@@ -102,9 +112,9 @@ class Player {
 
     // Method for calculating the damage done by a pickaxe swing against a particular ore
     calculateDamage() {
-        
-        let lowerBound = Math.floor((this.pickaxe.attributes.damage + this.levelDamageBonus) * this.pickaxe.attributes.lowMultiplier);
-        let upperBound = Math.floor((this.pickaxe.attributes.damage + this.levelDamageBonus) * this.pickaxe.attributes.highMultiplier);
+        let levelDamage = this.level * 10 + this.level * this.bonusLevelDamage;
+        let lowerBound = Math.floor((this.pickaxe.attributes.damage + levelDamage) * this.pickaxe.attributes.lowMultiplier);
+        let upperBound = Math.floor((this.pickaxe.attributes.damage + levelDamage) * this.pickaxe.attributes.highMultiplier);
         let damageDealt = getRandomInt(lowerBound, upperBound);
 
         // Check for crit here
@@ -152,8 +162,6 @@ class Player {
     changeInterval(log) {
         clearInterval(this.interval);
         this.interval = setInterval(() => { this.mine(log) }, this.tickRate);
-        log.write("New interval set: " + this.tickRate + " ms");
-        renderPlayerData(this);
     }
     
     // Want a feature where you spend 1 enchantment core to reroll your 3 enchantments and possibly tier up
@@ -169,7 +177,6 @@ class Player {
         let chance = Math.random();
         if (chance < enchantmentTierDictionary[this.enchantmentTier.toString()].tierUpChance) {
             this.enchantmentTier += 1;
-            console.log("Tiered up! " + this.enchantmentTier);
         }
     }
 
@@ -180,25 +187,58 @@ class Player {
         } else {
             // Subtract a core
             this.enchantmentCores -= 1;
+            // Reset values back to base
+            this.resetEnchantments(log);
             // Check for a tier up
             this.tierUpEnchantments(log);
-            // Reroll depending on the current tier
-            let randomEnchant1 = getRandomValueFromDict(enchantmentDictionary)
-            let newEnchantment1Dict = randomEnchant1[1];
-            let newEnchantment1Type = randomEnchant1[0];
-            let newEnchantment1Value = getRandomFromArray(newEnchantment1Dict[this.enchantmentTier.toString()]);
-            let randomEnchant2 = getRandomValueFromDict(enchantmentDictionary)
-            let newEnchantment2Dict = randomEnchant2[1];
-            let newEnchantment2Type = randomEnchant2[0];
-            let newEnchantment2Value = getRandomFromArray(newEnchantment1Dict[this.enchantmentTier.toString()]);
-            let randomEnchant3 = getRandomValueFromDict(enchantmentDictionary)
-            let newEnchantment3Dict = randomEnchant3[1];
-            let newEnchantment3Type = randomEnchant3[0];
-            let newEnchantment3Value = getRandomFromArray(newEnchantment1Dict[this.enchantmentTier.toString()]);
-            console.log("Random Enchant 1: " + newEnchantment1Type + " " + newEnchantment1Value);
-            console.log("Random Enchant 2: " + newEnchantment2Type + " " + newEnchantment2Value);
-            console.log("Random Enchant 3: " + newEnchantment3Type + " " + newEnchantment3Value);
+            let e1 = this.rollEnchantment();
+            let e2 = this.rollEnchantment();
+            let e3 = this.rollEnchantment();
+            // Apply the enchantments
+            this.applyEnchantment(e1, 1, log);
+            this.applyEnchantment(e2, 2, log);
+            this.applyEnchantment(e3, 3, log);
+            // Display the enchantments
+            renderPlayerData(this);
+            renderPickaxeData(this);
         }
+    }
+
+    resetEnchantments(log) {
+        this.tickRate = this.baseTickRate;
+        this.expEnchantmentMultiplier = this.baseExpEnchantmentMultipler;
+        this.bonusLevelDamage = 0;
+        this.changeInterval(log);
+    }
+
+    applyEnchantment(enchantment, num, log) {
+        let type = enchantment[0];
+        let value = enchantment[1];
+        switch(type) {
+            case "tickRate":
+                this.tickRate -= Math.floor(this.baseTickRate * (1 - value));
+                this.changeInterval(log);
+                enchantmentDOMElements[num - 1].innerHTML = "Mining rate multipler: +" + Math.floor((1 - value) * 100) + "%";
+                break;
+            case "expGain":
+                this.expEnchantmentMultiplier = this.expEnchantmentMultiplier + value;
+                enchantmentDOMElements[num - 1].innerHTML = "Exp gain multiplier: +" + Math.floor(value * 100) + "%";
+                break;
+            case "bonusLevelDamage":
+                this.bonusLevelDamage = value;
+                enchantmentDOMElements[num - 1].innerHTML = "Bonus level damage: " + "+" + value;
+                break;
+            default:
+                true;
+        }
+    }
+
+    rollEnchantment() {
+         let randomEnchant = getRandomValueFromDict(enchantmentDictionary);
+         let newEnchantmentDict = randomEnchant[1];
+         let newEnchantmentType = randomEnchant[0];
+         let newEnchantmentValue = getRandomFromArray(newEnchantmentDict[this.enchantmentTier.toString()]);
+         return [newEnchantmentType, newEnchantmentValue];
     }
 
 }
