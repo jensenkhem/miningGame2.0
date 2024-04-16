@@ -10,6 +10,7 @@ class Player {
             iron: 0,
             mithril: 0
         }
+        this.enchantmentCores = 0;
         // Start the player off with a bronze pickaxe when constructed
         this.pickaxe = createPickaxe("bronze");
         this.currentOre = new Ore("bronze");
@@ -17,6 +18,7 @@ class Player {
         this.missThreshold = 0.5;
         this.maxAccThreshold = 1.5;
         this.oreGainMax = 5;
+        this.interval = null;
     }
 
     // Method for seeing if you can afford a new pickaxe
@@ -138,4 +140,12 @@ class Player {
             renderCurrentOreData(this);
         }
     }
+
+    changeInterval(log) {
+        clearInterval(this.interval);
+        this.interval = setInterval(() => { this.mine(log) }, this.tickRate);
+        log.write("New interval set: " + this.tickRate + " ms");
+        renderPlayerData(this);
+    }
+
 }

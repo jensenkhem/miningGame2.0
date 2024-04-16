@@ -29,7 +29,7 @@ function configureEvents(player, log) {
     // Set up the ore switching handlers
     setupOreHandlers(player, log);
     // Set up the main game loop interval
-    setInterval(() => { player.mine(log) }, player.tickRate);
+    player.interval = setInterval(() => { player.mine(log) }, player.tickRate);
  }
  
  // Function which given a player, sets up the DOM and events and everything needed to start playing

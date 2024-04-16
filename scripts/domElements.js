@@ -7,6 +7,8 @@ const bronzeDOMElement = document.getElementById("playerBronze");
 const ironDOMElement = document.getElementById("playerIron");
 const mithrilDOMElement = document.getElementById("playerMithril");
 
+const enchantmentCoresDOMElement = document.getElementById("enchantmentCores");
+
 const pickaxeNameDOMElement = document.getElementById("pickaxeName");
 const pickaxeDamageDOMElement = document.getElementById("pickaxeDamage");
 const pickaxeCritChanceDOMElement = document.getElementById("pickaxeCritChance");
@@ -18,10 +20,13 @@ const buyMithrilPickaxeDOMElement = document.getElementById("mithrilPickaxeUpgra
 
 const currentOreNameDOMElement = document.getElementById("currentOreName");
 const currentOreHealthDOMElement = document.getElementById("currentOreHealth");
+const playerTickRateDOMElement = document.getElementById("playerTickRate");
 
 const bronzePictureDOMElement = document.getElementById("bronzeOre");
 const ironPictureDOMElement = document.getElementById("ironOre");
 const mithrilPictureDOMElement = document.getElementById("mithrilOre");
+
+const tickRateButtonDOMElement = document.getElementById("testReduceTickRate");
 
 
 const logDOMElements = [
@@ -39,6 +44,14 @@ function renderPlayerData(player) {
     mithrilDOMElement.innerHTML = "Mithril: " + player.resources.mithril;
     levelDOMElement.innerHTML = "Player Level: " + player.level;
     expDOMElement.innerHTML = "Exp: " + player.currentExp + "/" + player.maxExp;
+    playerTickRateDOMElement.innerHTML = "Mining rate: " + player.tickRate + " ms";
+    if(player.level >= 30) {
+        enchantmentCoresDOMElement.style.visibility = "visible";
+        enchantmentCoresDOMElement.innerHTML = "Enchantment cores: " + player.enchantmentCores;
+    } else {
+        enchantmentCoresDOMElement.style.visibility = "hidden";
+    }
+
 }
 
 // Renders the player's pickaxe data onto the DOM
