@@ -1,30 +1,32 @@
 // Game Database
 const costDictionary = {
-    "bronze": {bronze: 50, iron: 0, mithril: 0}, 
-    "iron": {bronze: 0, iron: 50, mithril: 0},
-    "mithril": {bronze: 0, iron: 25, mithril: 50},
-    "adamant": {bronze: 0, iron: 0, mithril: 100, adamant: 100},
+    "bronze": {bronze: 50, iron: 0, mithril: 0, adamant: 0, rune: 0}, 
+    "iron": {bronze: 0, iron: 50, mithril: 0, adamant: 0, rune: 0},
+    "mithril": {bronze: 0, iron: 25, mithril: 50, adamant: 0, rune: 0},
+    "adamant": {bronze: 0, iron: 0, mithril: 100, adamant: 100, rune: 0},
+    "rune": {bronze: 0, iron: 0, mithril: 100, adamant: 100, rune: 100},
 
 };
 const baseAttributesDictionary = {
     "bronze": {damage: 100, critChance: 0.05, lowMultiplier: 0.75, highMultiplier: 1.25, critDamageMultiplier: 2, tier: 1}, 
     "iron": {damage: 250, critChance: 0.10, lowMultiplier: 0.75, highMultiplier: 1.25, critDamageMultiplier: 2, tier: 2},
     "mithril": {damage: 750, critChance: 0.15, lowMultiplier: 0.75, highMultiplier: 1.25, critDamageMultiplier: 2, tier: 3},
-    "adamant": {damage: 2500, critChance: 0.15, lowMultiplier: 0.75, highMultiplier: 1.25, critDamageMultiplier: 2, tier: 4}
-
+    "adamant": {damage: 2500, critChance: 0.15, lowMultiplier: 0.75, highMultiplier: 1.25, critDamageMultiplier: 2, tier: 4},
+    "rune": {damage: 10000, critChance: 0.20, lowMultiplier: 0.75, highMultiplier: 1.25, critDamageMultiplier: 2.5, tier: 5},
 };
 const nameDictionary = {
     "bronze": "Bronze Pickaxe", 
     "iron": "Iron Pickaxe",
     "mithril": "Mithril Pickaxe",
-    "adamant": "Adamant Pickaxe"
-
+    "adamant": "Adamant Pickaxe",
+    "rune": "Rune Pickaxe",
 };
 const oreDictionary = {
     "bronze": {name: "Bronze Ore", maxHealth: 500, defense: 100, exp: 75}, 
     "iron": {name: "Iron Ore", maxHealth: 2500, defense: 200, exp: 200},
-    "mithril": {name: "Mithril Ore", maxHealth: 10000, defense: 350, exp: 500},
-    "adamant": {name: "Adamant Ore", maxHealth: 50000, defense: 1000, exp: 2000},
+    "mithril": {name: "Mithril Ore", maxHealth: 7500, defense: 350, exp: 500},
+    "adamant": {name: "Adamant Ore", maxHealth: 30000, defense: 1000, exp: 2000},
+    "rune": {name: "Rune Ore", maxHealth: 100000, defense: 5000, exp: 10000},
 };
 
 

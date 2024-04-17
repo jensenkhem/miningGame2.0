@@ -11,6 +11,9 @@ function setupOreHandlers(player, log) {
     adamantPictureDOMElement.onclick = () => {
         player.switchOre("adamant", log);
     }
+    runePictureDOMElement.onclick = () => {
+        player.switchOre("rune", log);
+    }
 }
 
 function setupShopHandlers(player, log) {
@@ -25,6 +28,9 @@ function setupShopHandlers(player, log) {
     }
     buyAdamantPickaxeDOMElement.onclick = () => {
         player.buyPickaxe("adamant", log);
+    }
+    buyRunePickaxeDOMElement.onclick = () => {
+        player.buyPickaxe("rune", log);
     }
 }
 

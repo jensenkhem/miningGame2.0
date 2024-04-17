@@ -7,7 +7,7 @@ const bronzeDOMElement = document.getElementById("playerBronze");
 const ironDOMElement = document.getElementById("playerIron");
 const mithrilDOMElement = document.getElementById("playerMithril");
 const adamantDOMElement = document.getElementById("playerAdamant");
-
+const runeDOMElement = document.getElementById("playerRune");
 
 const playerEnchantmentsDOMElement = document.getElementById("enchantmentStuffDetailed");
 const enchantmentCoresDOMElement = document.getElementById("enchantmentCores");
@@ -29,6 +29,7 @@ const buyBronzePickaxeDOMElement = document.getElementById("bronzePickaxeUpgrade
 const buyIronPickaxeDOMElement = document.getElementById("ironPickaxeUpgradeButton");
 const buyMithrilPickaxeDOMElement = document.getElementById("mithrilPickaxeUpgradeButton");
 const buyAdamantPickaxeDOMElement = document.getElementById("adamantPickaxeUpgradeButton");
+const buyRunePickaxeDOMElement = document.getElementById("runePickaxeUpgradeButton");
 
 const currentOreNameDOMElement = document.getElementById("currentOreName");
 const currentOreHealthDOMElement = document.getElementById("currentOreHealth");
@@ -38,6 +39,7 @@ const bronzePictureDOMElement = document.getElementById("bronzeOre");
 const ironPictureDOMElement = document.getElementById("ironOre");
 const mithrilPictureDOMElement = document.getElementById("mithrilOre");
 const adamantPictureDOMElement = document.getElementById("adamantOre");
+const runePictureDOMElement = document.getElementById("runeOre");
 
 const tickRateButtonDOMElement = document.getElementById("testReduceTickRate");
 
@@ -56,6 +58,7 @@ function renderPlayerData(player) {
     ironDOMElement.innerHTML = "Iron: " + player.resources.iron;
     mithrilDOMElement.innerHTML = "Mithril: " + player.resources.mithril;
     adamantDOMElement.innerHTML = "Adamant: " + player.resources.adamant;
+    runeDOMElement.innerHTML = "Rune: " + player.resources.rune;
     levelDOMElement.innerHTML = "Player Level: " + player.level;
     expDOMElement.innerHTML = "Exp: " + player.currentExp + "/" + player.maxExp;
     playerTickRateDOMElement.innerHTML = "Mining rate: " + player.tickRate + " ms";

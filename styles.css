@@ -18,15 +18,40 @@
     margin-left: -10;
 }
 
+#oreWrapper {
+    width: 100%;
+}
+
+.playerInfo, .oreSelection {
+    float: left;
+    width: 50%;
+}
+
+#bronzeOre {
+    width: 150;
+    height: 150;
+}
+
+#ironOre {
+    width: 150;
+    height: 150;
+}
+
 #mithrilOre {
-    width: 300;
-    height: 250;
+    width: 150;
+    height: 150;
 }
 
 #adamantOre {
-    width: 300;
-    height: 250;
+    width: 150;
+    height: 150;
 }
+
+#runeOre {
+    width: 150;
+    height: 150;
+}
+
 
 #shopTitle {
     text-decoration: underline;
@@ -35,19 +60,46 @@
 }
 
 #bronzePickaxeUpgradeButton {
-    width: 400;
+    width: 30%;
+}
+
+#pickaxeShop {
+    display: grid;
+    width: 100%
+}
+
+#upgradeShop {
+    display: grid
+}
+
+#pickaxeShopTitle {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 15;
+    margin-top: 10;
+}
+
+#upgradeShopTitle {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 15;
+    margin-top: 10;
 }
 
 #ironPickaxeUpgradeButton {
-    width: 400;
+    width: 30%;
 }
 
 #mithrilPickaxeUpgradeButton {
-    width: 400;
+    width: 30%;
 }
 
 #adamantPickaxeUpgradeButton {
-    width: 400;
+    width: 30%;
+}
+
+#runePickaxeUpgradeButton {
+    width: 30%;
 }
 
 
@@ -86,11 +138,6 @@
 
 .container {
     display: flex;
-}
-
-.container .playerInfo,
-.container .shop {
-    flex: 1;
 }
 
 #playerLevel {

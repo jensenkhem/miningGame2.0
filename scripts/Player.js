@@ -1,7 +1,7 @@
 // Main player class
 class Player {
     constructor() {
-        this.level = 31;
+        this.level = 1;
         this.currentExp = 0;
         this.maxExp = 100;
         this.expEnchantmentMultiplier = 0;
@@ -12,6 +12,7 @@ class Player {
             iron: 0,
             mithril: 0,
             adamant: 0,
+            rune: 0,
         }
         this.enchantmentCores = 100;
         this.enchantmentTier = 1;
