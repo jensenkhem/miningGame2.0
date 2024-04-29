@@ -59,17 +59,13 @@
     font-size: 20;
 }
 
-#bronzePickaxeUpgradeButton {
-    width: 30%;
-}
 
 #pickaxeShop {
-    display: grid;
-    width: 100%
+    flex: 1;
 }
 
 #upgradeShop {
-    display: grid
+    flex: 1;
 }
 
 #pickaxeShopTitle {
@@ -77,6 +73,7 @@
     font-weight: bold;
     font-size: 15;
     margin-top: 10;
+    display: grid;
 }
 
 #upgradeShopTitle {
@@ -84,24 +81,8 @@
     font-weight: bold;
     font-size: 15;
     margin-top: 10;
+    display: grid;
 }
-
-#ironPickaxeUpgradeButton {
-    width: 30%;
-}
-
-#mithrilPickaxeUpgradeButton {
-    width: 30%;
-}
-
-#adamantPickaxeUpgradeButton {
-    width: 30%;
-}
-
-#runePickaxeUpgradeButton {
-    width: 30%;
-}
-
 
 #levelExp {
     margin-left: 10
@@ -157,7 +138,8 @@
 }
 
 .shop {
-    display: grid;
+    display: flex;
+    width: 50%;
 }
 
 #pickaxeInfoTitle {
@@ -179,8 +161,13 @@
     margin-bottom: 10;
 }
 
+.pickaxeUpgradeButton {
+    width: 90%;
+}
+
 .pickaxeInfo {
     display: grid;
+    margin-bottom: 10;
 }
 
 .pickaxeAttributes {

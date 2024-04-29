@@ -14,7 +14,7 @@ class Player {
             adamant: 0,
             rune: 0,
         }
-        this.enchantmentCores = 100;
+        this.enchantmentCores = 0;
         this.enchantmentTier = 1;
         // Start the player off with a bronze pickaxe when constructed
         this.pickaxe = createPickaxe("bronze");
@@ -60,6 +60,8 @@ class Player {
             this.resources.bronze -= costDictionary[type].bronze;
             this.resources.iron -= costDictionary[type].iron;
             this.resources.mithril -= costDictionary[type].mithril;
+            this.resources.mithril -= costDictionary[type].adamant;
+            this.resources.mithril -= costDictionary[type].rune;
             this.pickaxe = createPickaxe(type);
             log.write("Purchased " + this.pickaxe.name + "!");
             renderPickaxeData(this);
