@@ -60,6 +60,9 @@ class Player {
     levelup() {
         while(this.currentExp >= this.maxExp) {
             this.level += 1;
+            if(this.level == 30) {
+                this.enchantmentCores = 1;
+            }
             this.currentExp = this.currentExp - this.maxExp;
             this.maxExp = Math.floor(this.maxExp *= 1.12);
         }
