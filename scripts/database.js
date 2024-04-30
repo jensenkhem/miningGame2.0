@@ -1,13 +1,13 @@
 // Game Database
 const costDictionary = {
-    "bronze": {bronze: 50, iron: 0, mithril: 0, adamant: 0, rune: 0}, 
-    "iron": {bronze: 0, iron: 50, mithril: 0, adamant: 0, rune: 0},
-    "mithril": {bronze: 0, iron: 25, mithril: 50, adamant: 0, rune: 0},
-    "adamant": {bronze: 0, iron: 0, mithril: 100, adamant: 100, rune: 0},
-    "rune": {bronze: 0, iron: 0, mithril: 100, adamant: 100, rune: 100},
-
+    "bronze": {bronze: 50, iron: 0, mithril: 0, adamant: 0, rune: 0, reforge: {bronze: 25, iron: 0, mithril: 0, adamant: 0, rune: 0}}, 
+    "iron": {bronze: 0, iron: 50, mithril: 0, adamant: 0, rune: 0, reforge: {bronze: 0, iron: 25, mithril: 0, adamant: 0, rune: 0}},
+    "mithril": {bronze: 0, iron: 25, mithril: 50, adamant: 0, rune: 0, reforge: {bronze: 0, iron: 0, mithril: 25, adamant: 0, rune: 0}},
+    "adamant": {bronze: 0, iron: 0, mithril: 100, adamant: 100, rune: 0, reforge: {bronze: 0, iron: 0, mithril: 0, adamant: 50, rune: 0}},
+    "rune": {bronze: 0, iron: 0, mithril: 100, adamant: 100, rune: 100, reforge: {bronze: 0, iron: 0, mithril: 0, adamant: 0, rune: 50}},
 };
 const baseAttributesDictionary = {
+    "wood": {damage: 75, critChance: 0.05, lowMultiplier: 0.75, highMultiplier: 1.25, critDamageMultiplier: 2, tier: 0},
     "bronze": {damage: 100, critChance: 0.05, lowMultiplier: 0.75, highMultiplier: 1.25, critDamageMultiplier: 2, tier: 1}, 
     "iron": {damage: 250, critChance: 0.10, lowMultiplier: 0.75, highMultiplier: 1.25, critDamageMultiplier: 2, tier: 2},
     "mithril": {damage: 750, critChance: 0.15, lowMultiplier: 0.75, highMultiplier: 1.25, critDamageMultiplier: 2, tier: 3},
@@ -15,6 +15,7 @@ const baseAttributesDictionary = {
     "rune": {damage: 10000, critChance: 0.20, lowMultiplier: 0.75, highMultiplier: 1.25, critDamageMultiplier: 2.5, tier: 5},
 };
 const nameDictionary = {
+    "wood": "Wood Pickaxe",
     "bronze": "Bronze Pickaxe", 
     "iron": "Iron Pickaxe",
     "mithril": "Mithril Pickaxe",

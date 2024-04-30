@@ -60,15 +60,19 @@
 }
 
 
-#pickaxeShop {
+#forgeShop {
     flex: 1;
+}
+
+#pickaxeUpgradeCost {
+    font-size: 15;
 }
 
 #upgradeShop {
     flex: 1;
 }
 
-#pickaxeShopTitle {
+#forgeShopTitle {
     text-decoration: underline;
     font-weight: bold;
     font-size: 15;
@@ -179,6 +183,7 @@
     display: grid;
     margin-bottom: 10;
     margin-left: 10;
+    margin-top: 50
 }
 
 #logTitle {
@@ -194,6 +199,64 @@
     margin-left: 10;
 }
 
+#reforgePickaxeButton {
+    width: 150;
+}
+
 #currentOreName {
     font-weight: bold;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  .btn{
+    /* display: inline-block; */
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.btn:hover{
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
 }

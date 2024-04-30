@@ -17,7 +17,7 @@ class Player {
         this.enchantmentCores = 0;
         this.enchantmentTier = 1;
         // Start the player off with a bronze pickaxe when constructed
-        this.pickaxe = createPickaxe("bronze");
+        this.pickaxe = createPickaxe("wood");
         this.currentOre = new Ore("bronze");
         this.tickRate = 2500;
         this.baseTickRate = 2500;
@@ -33,7 +33,23 @@ class Player {
         if (
             this.resources.bronze >= costDictionary[type].bronze &&
             this.resources.iron >= costDictionary[type].iron &&
-            this.resources.mithril >= costDictionary[type].mithril
+            this.resources.mithril >= costDictionary[type].mithril &&
+            this.resources.adamant >= costDictionary[type].adamant &&
+            this.resources.rune >= costDictionary[type].rune
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+    // Method for seeing if you can afford to reforge your pickaxe
+    canAffordReforge(type) {
+        if (
+            this.resources.bronze >= costDictionary[type].reforge.bronze &&
+            this.resources.iron >= costDictionary[type].reforge.iron &&
+            this.resources.mithril >= costDictionary[type].reforge.mithril &&
+            this.resources.adamant >= costDictionary[type].reforge.adamant &&
+            this.resources.rune >= costDictionary[type].reforge.rune
         ) {
             return true;
         }
@@ -51,17 +67,76 @@ class Player {
         renderPickaxeData(this);
     }
 
-    // Method for purchasing a new pickaxe
-    buyPickaxe(type, log) {
+    // Method for reforging an existing pickaxe
+    reforgePickaxe(log) {
+        let type = "wood"
+        switch(this.pickaxe.tier) {
+            case 0:
+                type = "wood";
+                break;
+            case 1: 
+                type = "bronze";
+                break;
+            case 2:
+                type = "iron";
+                break;
+            case 3:
+                type = "mithril";
+                break;
+            case 4: 
+                type = "adamant";
+                break;
+            case 5: 
+                type = "rune";
+                break;
+        }
         let newPickaxe = createPickaxe(type);
-        if(newPickaxe.attributes.tier < this.pickaxe.attributes.tier) {
-            log.write("This pickaxe is worse than your current one...")    
-        } else if (this.canAffordPickaxe(type)) {
+        if (type == "wood") {
+            log.write("Can only reforge bronze pickaxes or better!");
+        } else if (this.canAffordReforge(type)) {
+            this.resources.bronze -= costDictionary[type].reforge.bronze;
+            this.resources.iron -= costDictionary[type].reforge.iron;
+            this.resources.mithril -= costDictionary[type].reforge.mithril;
+            this.resources.adamant -= costDictionary[type].reforge.adamant;
+            this.resources.rune -= costDictionary[type].reforge.rune;
+            this.pickaxe = createPickaxe(type);
+            log.write("Reforged " + this.pickaxe.name + "!");
+            renderPickaxeData(this);
+            renderPlayerData(this);
+        } else {
+            log.write("Can not afford!");
+        }
+    }
+
+    // Method for purchasing a new pickaxe
+    upgradePickaxe(log) {
+        // Get the next pickaxe
+        let type = null
+        switch(this.pickaxe.tier) {
+            case 0:
+                type = "bronze";
+                break;
+            case 1: 
+                type = "iron";
+                break;
+            case 2:
+                type = "mithril";
+                break;
+            case 3:
+                type = "adamant";
+                break;
+            case 4: 
+                type = "rune";
+                break;
+        }
+        let newPickaxe = createPickaxe(type);
+        console.log(type);
+        if (this.canAffordPickaxe(type)) {
             this.resources.bronze -= costDictionary[type].bronze;
             this.resources.iron -= costDictionary[type].iron;
             this.resources.mithril -= costDictionary[type].mithril;
-            this.resources.mithril -= costDictionary[type].adamant;
-            this.resources.mithril -= costDictionary[type].rune;
+            this.resources.adamant -= costDictionary[type].adamant;
+            this.resources.rune -= costDictionary[type].rune;
             this.pickaxe = createPickaxe(type);
             log.write("Purchased " + this.pickaxe.name + "!");
             renderPickaxeData(this);

@@ -7,7 +7,6 @@ class Pickaxe {
         this.costObject = costObject;
         this.damageColor = this.getColor("damage");
         this.critColor = this.getColor("critChance");
-
     }
     
     // Randomly modifies the base attribtues of the pickaxe between a range

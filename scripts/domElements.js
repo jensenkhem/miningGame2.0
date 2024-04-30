@@ -25,6 +25,9 @@ const pickaxeNameDOMElement = document.getElementById("pickaxeName");
 const pickaxeDamageDOMElement = document.getElementById("pickaxeDamage");
 const pickaxeCritChanceDOMElement = document.getElementById("pickaxeCritChance");
 
+const upgradePickaxeDOMElement = document.getElementById("pickaxeUpgradeButton");
+const reforgePickaxeDOMElement = document.getElementById("reforgePickaxeButton");
+
 const buyBronzePickaxeDOMElement = document.getElementById("bronzePickaxeUpgradeButton");
 const buyIronPickaxeDOMElement = document.getElementById("ironPickaxeUpgradeButton");
 const buyMithrilPickaxeDOMElement = document.getElementById("mithrilPickaxeUpgradeButton");
@@ -82,9 +85,10 @@ function renderPlayerData(player) {
 function renderPickaxeData(player) {
     pickaxeNameDOMElement.innerHTML = player.pickaxe.name;
     pickaxeNameDOMElement.style.fontWeight = "bold";
-    pickaxeDamageDOMElement.innerHTML = "Damage: " + player.pickaxe.attributes.damage + " (+" + (player.level * 10 + player.level * player.bonusLevelDamage) + " level bonus)";
+    console.log(player.pickaxe.attributes.damage);
+    pickaxeDamageDOMElement.innerHTML = "Damage: " + player.pickaxe.attributes.damage  + "/" + Math.floor(player.pickaxe.baseAttributes.damage * 1.25) + " (+" + (player.level * 10 + player.level * player.bonusLevelDamage) + " level bonus)";
     pickaxeDamageDOMElement.style.color = player.pickaxe.damageColor;
-    pickaxeCritChanceDOMElement.innerHTML = "Crit Chance: " + player.pickaxe.attributes.critChance;
+    pickaxeCritChanceDOMElement.innerHTML = "Crit Chance: " + player.pickaxe.attributes.critChance + "/" + Math.round( player.pickaxe.baseAttributes.critChance * 1.25 * 100) / 100;
     pickaxeCritChanceDOMElement.style.color = player.pickaxe.critColor;
 }
 

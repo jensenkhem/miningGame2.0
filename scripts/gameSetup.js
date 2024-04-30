@@ -17,20 +17,11 @@ function setupOreHandlers(player, log) {
 }
 
 function setupShopHandlers(player, log) {
-    buyBronzePickaxeDOMElement.onclick = () => {
-        player.buyPickaxe("bronze", log);
+    upgradePickaxeDOMElement.onclick = () => {
+        player.upgradePickaxe(log);
     }
-    buyIronPickaxeDOMElement.onclick = () => {
-        player.buyPickaxe("iron", log);
-    }
-    buyMithrilPickaxeDOMElement.onclick = () => {
-        player.buyPickaxe("mithril", log);
-    }
-    buyAdamantPickaxeDOMElement.onclick = () => {
-        player.buyPickaxe("adamant", log);
-    }
-    buyRunePickaxeDOMElement.onclick = () => {
-        player.buyPickaxe("rune", log);
+    reforgePickaxeDOMElement.onclick = () => {
+        player.reforgePickaxe(log);
     }
 }
 
