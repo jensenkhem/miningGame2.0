@@ -26,13 +26,10 @@ const pickaxeDamageDOMElement = document.getElementById("pickaxeDamage");
 const pickaxeCritChanceDOMElement = document.getElementById("pickaxeCritChance");
 
 const upgradePickaxeDOMElement = document.getElementById("pickaxeUpgradeButton");
+const pickaxeUpgradeButtonTextDOMElement = document.getElementById("pickaxeUpgradeButtonText")
+const pickaxeUpgradeButtonTooltip = document.getElementById("pickaxeUpgradeButtonTooltip");
 const reforgePickaxeDOMElement = document.getElementById("reforgePickaxeButton");
-
-const buyBronzePickaxeDOMElement = document.getElementById("bronzePickaxeUpgradeButton");
-const buyIronPickaxeDOMElement = document.getElementById("ironPickaxeUpgradeButton");
-const buyMithrilPickaxeDOMElement = document.getElementById("mithrilPickaxeUpgradeButton");
-const buyAdamantPickaxeDOMElement = document.getElementById("adamantPickaxeUpgradeButton");
-const buyRunePickaxeDOMElement = document.getElementById("runePickaxeUpgradeButton");
+const reforgePickaxeTooltipDOMElement = document.getElementById("reforgeUpgradeButtonTooltip");
 
 const currentOreNameDOMElement = document.getElementById("currentOreName");
 const currentOreHealthDOMElement = document.getElementById("currentOreHealth");
@@ -85,14 +82,53 @@ function renderPlayerData(player) {
 function renderPickaxeData(player) {
     pickaxeNameDOMElement.innerHTML = player.pickaxe.name;
     pickaxeNameDOMElement.style.fontWeight = "bold";
-    console.log(player.pickaxe.attributes.damage);
     pickaxeDamageDOMElement.innerHTML = "Damage: " + player.pickaxe.attributes.damage  + "/" + Math.floor(player.pickaxe.baseAttributes.damage * 1.25) + " (+" + (player.level * 10 + player.level * player.bonusLevelDamage) + " level bonus)";
     pickaxeDamageDOMElement.style.color = player.pickaxe.damageColor;
     pickaxeCritChanceDOMElement.innerHTML = "Crit Chance: " + player.pickaxe.attributes.critChance + "/" + Math.round( player.pickaxe.baseAttributes.critChance * 1.25 * 100) / 100;
     pickaxeCritChanceDOMElement.style.color = player.pickaxe.critColor;
+    // Reforge stuff
+    let type = "wood"
+    if(player.pickaxe.baseAttributes.tier == 0) {
+        type = "wood";
+    } else if(player.pickaxe.baseAttributes.tier == 1) {
+        type = "bronze";
+    } else if(player.pickaxe.baseAttributes.tier == 2) {
+        type = "iron";
+    } else if(player.pickaxe.baseAttributes.tier == 3) {
+        type = "mithril";
+    } else if(player.pickaxe.baseAttributes.tier == 4) {
+        type = "adamant";
+    } 
+    else if(player.pickaxe.baseAttributes.tier == 5) {
+        type = "rune";
+    } 
+    if(player.pickaxe.baseAttributes.tier == 0) {
+        reforgePickaxeTooltipDOMElement.innerHTML = "Cannot reforge wood pickaxe!"
+    } else {
+        reforgePickaxeTooltipDOMElement.innerHTML = "Cost: " + costDictionary[type].reforge[type] + " " + type;
+    }
 }
 
 function renderCurrentOreData(player) {
     currentOreNameDOMElement.innerHTML = player.currentOre.name;
     currentOreHealthDOMElement.innerHTML = "Health: " + player.currentOre.currentHealth + " / " + player.currentOre.maxHealth;
+}
+
+function renderShopData(player) {
+    let cutName = player.pickaxe.name.split(" ")[0];
+    pickaxeUpgradeButtonText.innerHTML = "Upgrade pickaxe: " + "(Current: " + cutName + ")";
+    if(cutName == "Bronze") {
+        console.log("Got here?")
+        pickaxeUpgradeButtonTooltip.innerHTML = "Cost: 50 Iron";
+    } else if(cutName == "Iron") {
+        pickaxeUpgradeButtonTooltip.innerHTML = "Cost: 25 Iron, 50 Mithril";
+    } else if(cutName == "Mithril") {
+        pickaxeUpgradeButtonTooltip.innerHTML = "Cost: 100 Mithril, 100 Adamant";
+    }
+    else if(cutName == "Adamant") {
+        pickaxeUpgradeButtonTooltip.innerHTML = "Cost: 100 Mithril, 100 Adamant, 100 Rune";
+    }
+    else if(cutName == "Rune") {
+        pickaxeUpgradeButtonTooltip.innerHTML = "MAX";
+    }
 }

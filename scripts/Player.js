@@ -8,11 +8,11 @@ class Player {
         this.baseExpEnchantmentMultipler = 0;
         this.bonusLevelDamage = 0;
         this.resources = {
-            bronze: 0,
-            iron: 0,
-            mithril: 0,
-            adamant: 0,
-            rune: 0,
+            bronze: 1000,
+            iron: 1000,
+            mithril: 1000,
+            adamant: 1000,
+            rune: 1000,
         }
         this.enchantmentCores = 0;
         this.enchantmentTier = 1;
@@ -69,27 +69,22 @@ class Player {
 
     // Method for reforging an existing pickaxe
     reforgePickaxe(log) {
-        let type = "wood"
-        switch(this.pickaxe.tier) {
-            case 0:
-                type = "wood";
-                break;
-            case 1: 
-                type = "bronze";
-                break;
-            case 2:
-                type = "iron";
-                break;
-            case 3:
-                type = "mithril";
-                break;
-            case 4: 
-                type = "adamant";
-                break;
-            case 5: 
-                type = "rune";
-                break;
-        }
+        let type = "wood";
+        if(this.pickaxe.baseAttributes.tier == 0) {
+            type = "wood";
+        } else if(this.pickaxe.baseAttributes.tier == 1) {
+            type = "bronze";
+        } else if(this.pickaxe.baseAttributes.tier == 2) {
+            type = "iron";
+        } else if(this.pickaxe.baseAttributes.tier == 3) {
+            type = "mithril";
+        } else if(this.pickaxe.baseAttributes.tier == 4) {
+            type = "adamant";
+        } 
+        else if(this.pickaxe.baseAttributes.tier == 5) {
+            type = "rune";
+        } 
+
         let newPickaxe = createPickaxe(type);
         if (type == "wood") {
             log.write("Can only reforge bronze pickaxes or better!");
@@ -103,6 +98,7 @@ class Player {
             log.write("Reforged " + this.pickaxe.name + "!");
             renderPickaxeData(this);
             renderPlayerData(this);
+            renderShopData(this);
         } else {
             log.write("Can not afford!");
         }
@@ -111,26 +107,20 @@ class Player {
     // Method for purchasing a new pickaxe
     upgradePickaxe(log) {
         // Get the next pickaxe
-        let type = null
-        switch(this.pickaxe.tier) {
-            case 0:
-                type = "bronze";
-                break;
-            case 1: 
-                type = "iron";
-                break;
-            case 2:
-                type = "mithril";
-                break;
-            case 3:
-                type = "adamant";
-                break;
-            case 4: 
-                type = "rune";
-                break;
-        }
+        let type = "wood";
+        if(this.pickaxe.baseAttributes.tier == 0) {
+            type = "bronze";
+        } else if(this.pickaxe.baseAttributes.tier == 1) {
+            type = "iron";
+        } else if(this.pickaxe.baseAttributes.tier == 2) {
+            type = "mithril";
+        } else if(this.pickaxe.baseAttributes.tier == 3) {
+            type = "adamant";
+        } else if(this.pickaxe.baseAttributes.tier == 4) {
+            type = "rune";
+        } 
+
         let newPickaxe = createPickaxe(type);
-        console.log(type);
         if (this.canAffordPickaxe(type)) {
             this.resources.bronze -= costDictionary[type].bronze;
             this.resources.iron -= costDictionary[type].iron;
@@ -140,6 +130,7 @@ class Player {
             this.pickaxe = createPickaxe(type);
             log.write("Purchased " + this.pickaxe.name + "!");
             renderPickaxeData(this);
+            renderShopData(this);
             renderPlayerData(this);
         } else {
             log.write("Can not afford!");

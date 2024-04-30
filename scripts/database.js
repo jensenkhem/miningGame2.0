@@ -23,7 +23,7 @@ const nameDictionary = {
     "rune": "Rune Pickaxe",
 };
 const oreDictionary = {
-    "bronze": {name: "Bronze Ore", maxHealth: 500, defense: 100, exp: 75}, 
+    "bronze": {name: "Bronze Ore", maxHealth: 500, defense: 75, exp: 75}, 
     "iron": {name: "Iron Ore", maxHealth: 2500, defense: 200, exp: 200},
     "mithril": {name: "Mithril Ore", maxHealth: 7500, defense: 350, exp: 500},
     "adamant": {name: "Adamant Ore", maxHealth: 30000, defense: 1000, exp: 2000},
