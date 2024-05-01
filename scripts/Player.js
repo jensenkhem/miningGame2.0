@@ -1,20 +1,21 @@
 // Main player class
 class Player {
     constructor() {
-        this.level = 1;
+        this.level = 31;
         this.currentExp = 0;
         this.maxExp = 100;
         this.expEnchantmentMultiplier = 0;
         this.baseExpEnchantmentMultipler = 0;
         this.bonusLevelDamage = 0;
         this.resources = {
+            stone: 1000,
             bronze: 1000,
             iron: 1000,
             mithril: 1000,
             adamant: 1000,
             rune: 1000,
         }
-        this.enchantmentCores = 0;
+        this.enchantmentCores = 1000;
         this.enchantmentTier = 1;
         // Start the player off with a bronze pickaxe when constructed
         this.pickaxe = createPickaxe("wood");
@@ -26,16 +27,32 @@ class Player {
         this.oreGainMax = 5;
         this.interval = null;
         this.luck = 0.05;
+        this.critMultiplier = 0;
+        this.forge = "none";
     }
 
     // Method for seeing if you can afford a new pickaxe
     canAffordPickaxe(type) {
         if (
-            this.resources.bronze >= costDictionary[type].bronze &&
-            this.resources.iron >= costDictionary[type].iron &&
-            this.resources.mithril >= costDictionary[type].mithril &&
-            this.resources.adamant >= costDictionary[type].adamant &&
-            this.resources.rune >= costDictionary[type].rune
+            this.resources.bronze >= pickaxeCostDictionary[type].bronze &&
+            this.resources.iron >= pickaxeCostDictionary[type].iron &&
+            this.resources.mithril >= pickaxeCostDictionary[type].mithril &&
+            this.resources.adamant >= pickaxeCostDictionary[type].adamant &&
+            this.resources.rune >= pickaxeCostDictionary[type].rune
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+    // Method for seeing if you can afford a new forge
+    canAffordForge(type) {
+        if (
+            this.resources.bronze >= forgeCostDictionary[type].bronze &&
+            this.resources.iron >= forgeCostDictionary[type].iron &&
+            this.resources.mithril >= forgeCostDictionary[type].mithril &&
+            this.resources.adamant >= forgeCostDictionary[type].adamant &&
+            this.resources.rune >= forgeCostDictionary[type].rune
         ) {
             return true;
         }
@@ -121,17 +138,54 @@ class Player {
             type = "adamant";
         } else if(this.pickaxe.baseAttributes.tier == 4) {
             type = "rune";
-        } 
-
-        let newPickaxe = createPickaxe(type);
-        if (this.canAffordPickaxe(type)) {
-            this.resources.bronze -= costDictionary[type].bronze;
-            this.resources.iron -= costDictionary[type].iron;
-            this.resources.mithril -= costDictionary[type].mithril;
-            this.resources.adamant -= costDictionary[type].adamant;
-            this.resources.rune -= costDictionary[type].rune;
+        } else if(this.pickaxe.baseAttributes.tier == 5) {
+            type = "MAX";
+        }
+        if(type == "MAX") {
+            log.write("Your pickaxe cannot be upgraded any further!");
+        } else if (this.canAffordPickaxe(type)) {
+            this.resources.bronze -= pickaxeCostDictionary[type].bronze;
+            this.resources.iron -= pickaxeCostDictionary[type].iron;
+            this.resources.mithril -= pickaxeCostDictionary[type].mithril;
+            this.resources.adamant -= pickaxeCostDictionary[type].adamant;
+            this.resources.rune -= pickaxeCostDictionary[type].rune;
             this.pickaxe = createPickaxe(type);
             log.write("Purchased " + this.pickaxe.name + "!");
+            renderPickaxeData(this);
+            renderShopData(this);
+            renderPlayerData(this);
+        } else {
+            log.write("Can not afford!");
+        }
+    }
+
+    // Method for upgrading the player's forge
+    upgradeForge(log) {
+        // Get the next pickaxe
+        let type = "none";
+        if(this.forge == "none") {
+            type = "bronze";
+        } else if(this.forge == "bronze") {
+            type = "iron";
+        } else if(this.forge == "iron") {
+            type = "mithril";
+        } else if(this.forge == "mithril") {
+            type = "adamant";
+        } else if(this.forge == "adamant") {
+            type = "rune";
+        } else if(this.forge == "rune") {
+            type = "MAX";
+        } 
+        if(type == "MAX") {
+            log.write("Your forge cannot be upgraded any further!");
+        } else if (this.canAffordForge(type)) {
+            this.resources.bronze -= forgeCostDictionary[type].bronze;
+            this.resources.iron -= forgeCostDictionary[type].iron;
+            this.resources.mithril -= forgeCostDictionary[type].mithril;
+            this.resources.adamant -= forgeCostDictionary[type].adamant;
+            this.resources.rune -= forgeCostDictionary[type].rune;
+            this.forge = type;
+            log.write("Your forge has been upgraded!");
             renderPickaxeData(this);
             renderShopData(this);
             renderPlayerData(this);
@@ -216,7 +270,7 @@ class Player {
 
     // Check for a critical hit
     criticalHitCheck() {
-        return Math.random() < this.pickaxe.attributes.critChance;
+        return Math.random() < this.pickaxe.attributes.critChance + (this.pickaxe.attributes.critChance * (1 + this.critMultiplier));
     }
 
     // Method to switch ore's given an ore type
@@ -300,6 +354,9 @@ class Player {
                 this.bonusLevelDamage = value;
                 enchantmentDOMElements[num - 1].innerHTML = "Bonus level damage: " + "+" + value;
                 break;
+            case "critChance":
+                this.critMultiplier = value;
+                enchantmentDOMElements[num - 1].innerHTML = "Crit chance multiplier: " + "+" + (1 + value);
             default:
                 true;
         }

@@ -1,6 +1,10 @@
 // Function which creates a pickaxe given a type
 function createPickaxe(type) {
-    return new Pickaxe(nameDictionary[type], baseAttributesDictionary[type], costDictionary[type]);
+    return new Pickaxe(nameDictionary[type], baseAttributesDictionary[type], pickaxeCostDictionary[type]);
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 // Function which gets a random integer between a given range

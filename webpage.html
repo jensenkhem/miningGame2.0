@@ -9,25 +9,12 @@
             <span id="playerInfoTitle">Player Info</span>
             <div class="playerResources">
                 <span id="playerResourcesTitle">Resources</span>
+                <span id="playerStone"></span>
                 <span id="playerBronze"></span>
                 <span id="playerIron"></span>
                 <span id="playerMithril"></span>
                 <span id="playerAdamant"></span>
                 <span id="playerRune"></span>
-            </div>
-            <div id="playerEnchantments">
-                <span id="playerEnchantmentsTitle">Enchantments</span>
-                <span id="hiddenEnchantMessage">Unlocks at level 30!</span>
-                <div id="enchantmentStuffDetailed">
-                    <span id="enchantmentCores"></span>
-                    <span id="enchantmentTier"></span>
-                    <div class="currentEnchantments">
-                        <span id="enchantment1">None</span>
-                        <span id="enchantment2">None</span>
-                        <span id="enchantment3">None</span>
-                    </div>
-                    <button id="enchant">Enchant - 1 Enchantment Core</button>
-                </div>
             </div>
             
             <div class="levelInfo">
@@ -47,6 +34,20 @@
                     </div>
                 </div>
             </div>
+            <div id="playerEnchantments">
+                <span id="playerEnchantmentsTitle">Enchantments</span>
+                <span id="hiddenEnchantMessage">Unlocks at level 30!</span>
+                <div id="enchantmentStuffDetailed">
+                    <span id="enchantmentCores"></span>
+                    <span id="enchantmentTier"></span>
+                    <div class="currentEnchantments">
+                        <span id="enchantment1">None</span>
+                        <span id="enchantment2">None</span>
+                        <span id="enchantment3">None</span>
+                    </div>
+                    <button id="enchant">Enchant - 1 Enchantment Core</button>
+                </div>
+            </div>
             <span id="shopTitle">Shop</span>
             <div class="shop">
                 <div id="forgeShop">
@@ -56,13 +57,60 @@
                             <span id="pickaxeUpgradeButtonText">Upgrade Pickaxe (Current: Wood)</span>
                             <span id="pickaxeUpgradeButtonTooltip" class="tooltiptext">Cost: 50 bronze</span>
                         </div>
-                        <div id="forgeUpgradeButton" class="pickaxeUpgradeButton btn tooltip">Upgrade Forge (Current: None)
+                        <div id="forgeUpgradeButton" class="pickaxeUpgradeButton btn tooltip">
+                            <span id="forgeUpgradeButtonText">Upgrade Forge (Current: None)</span>
                             <span id="forgeUpgradeButtonTooltip" class="tooltiptext">Cost: 50 bronze</span>
                         </div>
                     </div>
                 </div>
                 <div id="upgradeShop">
                     <span id="upgradeShopTitle">Upgrades</span>
+                    <!-- Exp upgrades? -->
+                    <div id="expUpgrade1Button" class="btn tooltip">
+                        <span id="expUpgrade1Text">Something</span>
+                        <span id="expUpgrade1Tooltip" class="tooltiptext">Something</span>
+                    </div>
+                    <div id="expUpgrade2Button" class="btn tooltip">
+                        <span id="expUpgrade1Text">Something</span>
+                        <span id="expUpgrade1Tooltip" class="tooltiptext">Something</span>
+                    </div>
+                    <div id="expUpgrade3Button" class="btn tooltip">
+                        <span id="expUpgrade1Text">Something</span>
+                        <span id="expUpgrade1Tooltip" class="tooltiptext">Something</span>
+                    </div>
+                    <div id="expUpgrade4Button" class="btn tooltip">
+                        <span id="expUpgrade1Text">Something</span>
+                        <span id="expUpgrade1Tooltip" class="tooltiptext">Something</span>
+                    </div>
+                    <div id="expUpgrade5Button" class="btn tooltip">
+                        <span id="expUpgrade1Text">Something</span>
+                        <span id="expUpgrade1Tooltip" class="tooltiptext">Something</span>
+                    </div>
+                    <!-- Mining rate upgrades? -->
+                    <!-- <div id="miningRateUpgrade1Button" class="btn tooltip">
+                        <span id="miningRateUpgrade1Text">Something</span>
+                        <span id="miningRateUpgrade1Tooltip" class="tooltiptext">Something</span>
+                    </div>
+                    <div id="miningRateUpgrade2Button" class="btn tooltip">
+                        <span id="miningRateUpgrade2Text">Something</span>
+                        <span id="miningRateUpgrade2Tooltip" class="tooltiptext">Something</span>
+                    </div>
+                    <div id="miningRateUpgrade2Button" class="btn tooltip">
+                        <span id="miningRateUpgrade2Text">Something</span>
+                        <span id="miningRateUpgrade2Tooltip" class="tooltiptext">Something</span>
+                    </div>
+                    <div id="miningRateUpgrade3Button" class="btn tooltip">
+                        <span id="miningRateUpgrade3Text">Something</span>
+                        <span id="miningRateUpgrade3Tooltip" class="tooltiptext">Something</span>
+                    </div>
+                    <div id="miningRateUpgrade4Button" class="btn tooltip">
+                        <span id="miningRateUpgrade4Text">Something</span>
+                        <span id="miningRateUpgrade4Tooltip" class="tooltiptext">Something</span>
+                    </div>
+                    <div id="miningRateUpgrade5Button" class="btn tooltip">
+                        <span id="miningRateUpgrade5Text">Something</span>
+                        <span id="miningRateUpgrade5Tooltip" class="tooltiptext">Something</span>
+                    </div> -->
                 </div>
             </div>
             <div class="log">
@@ -82,11 +130,19 @@
                 <span id="currentOreHealth"></span>
             </div>
             <div class="oreSelection">
+                <img id="stoneOre" src="assets/stone.jpg"></img>
                 <img id="bronzeOre" src="assets/bronze.png"></img>
                 <img id="ironOre" src="assets/iron.jpg"></img>
                 <img id="mithrilOre" src="assets/mithril.jpg"></img>
                 <img id="adamantOre" src="assets/adamant.jpg"></img>
                 <img id="runeOre" src="assets/rune.jpg"></img>
+            </div>
+        </div>
+        <div id="crewInfo">
+            <span id="crewInfoTitle">Crew Info</span>
+            <div id="crewMembers">
+                <span id="crewMembersTitle">Crew members:</span>
+                <span id="stoneMiners">Stone miners: 0</span>
             </div>
         </div>
         

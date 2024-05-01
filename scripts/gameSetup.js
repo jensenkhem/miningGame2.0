@@ -1,4 +1,7 @@
 function setupOreHandlers(player, log) {
+    stonePictureDOMElement.onclick = () => {
+        player.switchOre("stone", log);
+    }
     bronzePictureDOMElement.onclick = () => {
         player.switchOre("bronze", log);
     }
@@ -23,6 +26,9 @@ function setupShopHandlers(player, log) {
     reforgePickaxeDOMElement.onclick = () => {
         player.reforgePickaxe(log);
     }
+    upgradeForgeButtonDOMElement.onclick = () => {
+        player.upgradeForge(log);
+    }
 }
 
 // Function which configures event listeners for the game given a player
@@ -42,6 +48,7 @@ function configureEvents(player, log) {
  function setupGame(player, log) {
      renderPlayerData(player);
      renderPickaxeData(player);
+     renderShopData(player);
      renderCurrentOreData(player);
      configureEvents(player, log);
  }

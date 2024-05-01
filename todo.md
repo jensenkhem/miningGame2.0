@@ -1,12 +1,4 @@
 # Things that would be cool
-
-## Pickaxe upgrading
-Currently, the pickaxe upgrading system is a bunch of buttons, one for each pickaxe. Maybe consolidate those into just two buttons. 
-- One to upgrade to a new 'tier' of pickaxe
-- another to reforge the current pickaxe and try to aim for better stats (which would be much cheaper than the initial upgrade)
-
-Also, make it visible what the best and lowest possible stats are for that particular pickaxe beside the pickaxe stats just so the players can see what the colors mean
-
 ## General upgrading
 Recently, we added a general upgrades section, but there are none there yet. To avoid it taking up too much space, there should only be a limited amount of upgrades.
 

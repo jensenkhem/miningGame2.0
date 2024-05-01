@@ -1,10 +1,17 @@
 // Game Database
-const costDictionary = {
+const pickaxeCostDictionary = {
     "bronze": {bronze: 50, iron: 0, mithril: 0, adamant: 0, rune: 0, reforge: {bronze: 25, iron: 0, mithril: 0, adamant: 0, rune: 0}}, 
     "iron": {bronze: 0, iron: 50, mithril: 0, adamant: 0, rune: 0, reforge: {bronze: 0, iron: 25, mithril: 0, adamant: 0, rune: 0}},
     "mithril": {bronze: 0, iron: 25, mithril: 50, adamant: 0, rune: 0, reforge: {bronze: 0, iron: 0, mithril: 25, adamant: 0, rune: 0}},
     "adamant": {bronze: 0, iron: 0, mithril: 100, adamant: 100, rune: 0, reforge: {bronze: 0, iron: 0, mithril: 0, adamant: 50, rune: 0}},
     "rune": {bronze: 0, iron: 0, mithril: 100, adamant: 100, rune: 100, reforge: {bronze: 0, iron: 0, mithril: 0, adamant: 0, rune: 50}},
+};
+const forgeCostDictionary = {
+    "bronze": {bronze: 50, iron: 0, mithril: 0, adamant: 0, rune: 0}, 
+    "iron": {bronze: 0, iron: 50, mithril: 0, adamant: 0, rune: 0},
+    "mithril": {bronze: 0, iron: 25, mithril: 50, adamant: 0, rune: 0},
+    "adamant": {bronze: 0, iron: 0, mithril: 100, adamant: 100, rune: 0},
+    "rune": {bronze: 0, iron: 0, mithril: 100, adamant: 100, rune: 100},
 };
 const baseAttributesDictionary = {
     "wood": {damage: 75, critChance: 0.05, lowMultiplier: 0.75, highMultiplier: 1.25, critDamageMultiplier: 2, tier: 0},
@@ -23,6 +30,7 @@ const nameDictionary = {
     "rune": "Rune Pickaxe",
 };
 const oreDictionary = {
+    "stone": {name: "Stone", maxHealth: 100, defense: 0, exp: 5},
     "bronze": {name: "Bronze Ore", maxHealth: 500, defense: 75, exp: 75}, 
     "iron": {name: "Iron Ore", maxHealth: 2500, defense: 200, exp: 200},
     "mithril": {name: "Mithril Ore", maxHealth: 7500, defense: 350, exp: 500},
@@ -98,5 +106,13 @@ const enchantmentDictionary = {
         "4": [10, 11, 12],
         "5": [13, 14, 15],
         "6": [18, 19, 20],
+    },
+    "critChance": {
+        "1": [0.05, 0.10, 0.15],
+        "2": [0.20, 0.25, 0.30],
+        "3": [0.35, 0.40, 0.45],
+        "4": [0.50, 0.55, 0.60],
+        "5": [0.65, 0.70, 0.75],
+        "6": [0.80, 0.90, 1],
     }
 }

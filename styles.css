@@ -4,6 +4,22 @@
     font-size: 30;
 }
 
+#crewMembers {
+    display: grid;
+}
+
+#crewMembersTitle {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 20;
+}
+
+#crewInfoTitle {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 30;
+}
+
 #playerResourcesTitle {
     text-decoration: underline;
     font-weight: bold;
@@ -25,6 +41,11 @@
 .playerInfo, .oreSelection {
     float: left;
     width: 50%;
+}
+
+#stoneOre {
+    width: 150;
+    height: 150;
 }
 
 #bronzeOre {
@@ -183,7 +204,7 @@
     display: grid;
     margin-bottom: 10;
     margin-left: 10;
-    margin-top: 50
+    margin-top: 20;
 }
 
 #logTitle {
