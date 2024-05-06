@@ -36,6 +36,9 @@ const upgradeForgeButtonDOMElement = document.getElementById("forgeUpgradeButton
 const upgradeForgeButtonTextDOMElement = document.getElementById("forgeUpgradeButtonText");
 const upgradeForgeButtonTooltipDOMElement = document.getElementById("forgeUpgradeButtonTooltip");
 
+const stoneMinersTextDOMElement = document.getElementById("stoneMinersText");
+const stoneMinerBuyButtonDOMElement = document.getElementById("stoneMinerBuyButton");
+
 const currentOreNameDOMElement = document.getElementById("currentOreName");
 const currentOreHealthDOMElement = document.getElementById("currentOreHealth");
 const playerTickRateDOMElement = document.getElementById("playerTickRate");
@@ -89,6 +92,7 @@ function renderPlayerData(player) {
     runeDOMElement.innerHTML = "Rune: " + player.resources.rune;
     levelDOMElement.innerHTML = "Player Level: " + player.level;
     expDOMElement.innerHTML = "Exp: " + player.currentExp + "/" + player.maxExp;
+    stoneMinersTextDOMElement.innerHTML = "Stone miners: " + player.miners["stone"];
     playerTickRateDOMElement.innerHTML = "Mining rate: " + player.tickRate + " ms";
     if(player.level >= 30) {
         playerEnchantmentsDOMElement.style.visibility = "visible";

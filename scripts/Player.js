@@ -29,6 +29,9 @@ class Player {
         this.luck = 0.05;
         this.critMultiplier = 0;
         this.forge = "none";
+        this.miners = {
+            stone: 0,
+        }
     }
 
     // Method for seeing if you can afford a new pickaxe
@@ -194,6 +197,29 @@ class Player {
         }
     }
 
+    buyMiner(type, log) {
+        let cost = minerCostDictionary[type];
+        if(this.canAffordMiner(type)) {
+            this.resources.stone -= cost.stone;
+            this.resources.bronze -= cost.bronze;
+            this.miners.stone += 1;
+            log.write("Bought 1 " + type + " miner!");
+        } else {
+            log.write("Cannot afford!");
+        }
+        renderPlayerData(this);
+    }
+
+    canAffordMiner(type) {
+        if (
+            this.resources.stone &&
+            this.resources.bronze >= minerCostDictionary[type].bronze
+        ) {
+            return true;
+        }
+        return false;
+    }
+
     // Method for mining
     mine(log) {
         let damageDealt = this.calculateDamage();
@@ -231,6 +257,8 @@ class Player {
             let nextOre = new Ore(this.currentOre.type);
             this.currentOre = nextOre;
         }
+        // Handle any miner helpers here
+        this.resources.stone += this.miners["stone"];
         // Update the dom
         renderCurrentOreData(this); 
         renderPlayerData(this);

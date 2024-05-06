@@ -13,6 +13,9 @@ const forgeCostDictionary = {
     "adamant": {bronze: 0, iron: 0, mithril: 100, adamant: 100, rune: 0},
     "rune": {bronze: 0, iron: 0, mithril: 100, adamant: 100, rune: 100},
 };
+const minerCostDictionary = {
+    "stone": {stone: 50, bronze: 25},
+}
 const baseAttributesDictionary = {
     "wood": {damage: 75, critChance: 0.05, lowMultiplier: 0.75, highMultiplier: 1.25, critDamageMultiplier: 2, tier: 0},
     "bronze": {damage: 100, critChance: 0.05, lowMultiplier: 0.75, highMultiplier: 1.25, critDamageMultiplier: 2, tier: 1}, 

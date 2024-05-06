@@ -29,6 +29,9 @@ function setupShopHandlers(player, log) {
     upgradeForgeButtonDOMElement.onclick = () => {
         player.upgradeForge(log);
     }
+    stoneMinerBuyButtonDOMElement.onclick = () => {
+        player.buyMiner("stone", log);
+    }
 }
 
 // Function which configures event listeners for the game given a player
